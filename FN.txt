@@ -1,0 +1,12 @@
+FN
+
+
+Première Forme Normale (1NF) :
+Attributs atomiques : Assurez-vous que chaque attribut (colonne) d'une table contient une valeur atomique (indivisible). Évitez les listes séparées par des virgules dans une seule colonne.
+Valeurs uniques : Chaque ligne d'une table doit avoir une valeur unique pour la clé primaire.
+
+Deuxième Forme Normale (2NF) :
+Dépendance complète de la clé primaire : Si une table a une clé primaire composée de plusieurs colonnes, chaque colonne non clé doit dépendre complètement de la totalité de la clé primaire, pas seulement d'une partie.
+
+Troisième Forme Normale (3NF) :
+Élimination des dépendances transitives : Assurez-vous qu'aucune colonne non clé ne dépend d'une autre colonne non clé.
