@@ -1,0 +1,169 @@
+CREATE DATABASE salle_boxe;
+USE salle_boxe;
+
+CREATE TABLE eleve (
+    id_eleve INT PRIMARY KEY,
+    prenom VARCHAR(50),
+    nom VARCHAR(50),
+    date_inscription DATE,
+    niveau VARCHAR(20),
+    email VARCHAR(100),
+    poids FLOAT
+);
+
+CREATE TABLE equipement (
+    id_equipement INT PRIMARY KEY,
+    marque VARCHAR(50),
+    nom VARCHAR(50),
+    catégorie VARCHAR(20),
+    couleur VARCHAR(20)
+);
+
+CREATE TABLE cours (
+    id_cours INT PRIMARY KEY,
+    nom VARCHAR(50),
+    Date DATE,
+    niveau VARCHAR(20),
+    heure TIME NOT NULL
+);
+
+
+CREATE TABLE coach (
+    id_coach INT PRIMARY KEY,
+    nom VARCHAR(50),
+    prenom VARCHAR(50),
+    niveau VARCHAR(20)
+    age INT
+);
+
+CREATE TABLE combat (
+    id_combat INT PRIMARY KEY,
+    lieu VARCHAR(50),
+    niveau VARCHAR(20)
+);
+
+CREATE TABLE Enseigner (
+    id_cours INT,
+    id_coach INT,
+    FOREIGN KEY (id_cours) REFERENCES cours(id_cours),
+    FOREIGN KEY (id_coach) REFERENCES coach(id_coach),
+    PRIMARY KEY (id_cours, id_coach)
+);
+
+CREATE TABLE Organiser (
+    id_combat INT,
+    id_coach INT,
+    FOREIGN KEY (id_combat) REFERENCES combat(id_combat),
+    FOREIGN KEY (id_coach) REFERENCES coach(id_coach),
+    PRIMARY KEY (id_combat, id_coach)
+);
+
+CREATE TABLE detient (
+    id_eleve INT,
+    id_coach INT,
+    FOREIGN KEY (id_eleve) REFERENCES eleve(id_eleve),
+    FOREIGN KEY (id_coach) REFERENCES coach(id_coach),
+    PRIMARY KEY (id_eleve, id_coach)
+);
+
+CREATE TABLE avoir (
+    id_eleve INT,
+    id_equipement INT,
+    FOREIGN KEY (id_eleve) REFERENCES eleve(id_eleve),
+    FOREIGN KEY (id_equipement) REFERENCES equipement(id_equipement),
+    PRIMARY KEY (id_eleve, id_equipement)
+);
+
+CREATE TABLE faire (
+    id_eleve INT,
+    id_combat INT,
+    FOREIGN KEY (id_eleve) REFERENCES eleve(id_eleve),
+    FOREIGN KEY (id_combat) REFERENCES combat(id_combat),
+    PRIMARY KEY (id_eleve, id_combat)
+);
+
+CREATE TABLE pratique (
+    id_eleve INT,
+    id_cours INT,
+    FOREIGN KEY (id_eleve) REFERENCES eleve(id_eleve),
+    FOREIGN KEY (id_cours) REFERENCES cours(id_cours),
+    PRIMARY KEY (id_eleve, id_cours)
+);
+
+-- Inserts pour la table "eleve"
+INSERT INTO eleve (id_eleve, prenom, nom, date_inscription, niveau, email, poids)
+VALUES 
+    (1, 'Jean', 'Dupont', '2022-01-01', 'Débutant', 'jean.dupont@email.com', 70.5),
+    (2, 'Marie', 'Martin', '2022-02-15', 'Intermédiaire', 'marie.martin@email.com', 65.2),
+    (3, 'Pierre', 'Lefevre', '2022-03-20', 'Avancé', 'pierre.lefevre@email.com', 80.0);
+    
+
+-- Inserts pour la table "equipement"
+INSERT INTO equipement (id_equipement, marque, nom, catégorie, couleur)
+VALUES 
+    (1, 'Nike', 'Tapis de course', 'Cardio', 'Noir'),
+    (2, 'Adidas', 'Haltères', 'Muscu', 'Rouge'),
+    (3, 'Reebok', 'Vélo elliptique', 'Cardio', 'Gris');
+    
+-- Inserts pour la table "cours"
+INSERT INTO cours (id_cours, nom, Date, niveau, heure)
+VALUES 
+    (1, 'Yoga', '2022-01-10', 'Débutant', '18:00:00'),
+    (2, 'CrossFit', '2022-02-20', 'Intermédiaire', '19:30:00'),
+    (3, 'Zumba', '2022-03-15', 'Avancé', '17:45:00');
+    
+
+-- Inserts pour la table "coach"
+INSERT INTO coach (id_coach, nom, prenom, niveau, age)
+VALUES 
+    (1, 'Martin', 'Sophie', 'Débutant', 28),
+    (2, 'Dupuis', 'Luc', 'Intermédiaire', 35),
+    (3, 'Gagnon', 'Isabelle', 'Avancé', 40);
+    
+
+-- Inserts pour la table "combat"
+INSERT INTO combat (id_combat, lieu, niveau)
+VALUES 
+    (1, 'Ring A', 'Débutant'),
+    (2, 'Ring B', 'Intermédiaire'),
+    (3, 'Ring C', 'Avancé');
+
+-- Inserts pour la table "eleve"
+INSERT INTO eleve (id_eleve, prenom, nom, date_inscription, niveau, email, poids)
+VALUES 
+    (4, 'Alice', 'Tremblay', '2022-04-05', 'Débutant', 'alice.tremblay@email.com', 58.7),
+    (5, 'Maxime', 'Laporte', '2022-05-12', 'Intermédiaire', 'maxime.laporte@email.com', 75.2),
+    (6, 'Sophie', 'Gagnon', '2022-06-18', 'Avancé', 'sophie.gagnon@email.com', 62.5),
+    
+-- Inserts pour la table "equipement"
+INSERT INTO equipement (id_equipement, marque, nom, catégorie, couleur)
+VALUES 
+    (4, 'Puma', 'Corde à sauter', 'Cardio', 'Bleu'),
+    (5, 'Everlast', 'Sac de frappe', 'Musculation', 'Noir'),
+    (6, 'Garmin', 'Montre connectée', 'Accessoire', 'Blanc'),
+    
+
+-- Inserts pour la table "cours"
+INSERT INTO cours (id_cours, nom, Date, niveau, heure)
+VALUES 
+    (4, 'Pilates', '2022-04-20', 'Intermédiaire', '15:30:00'),
+    (5, 'Spinning', '2022-05-25', 'Avancé', '20:00:00'),
+    (6, 'Boxe', '2022-06-10', 'Débutant', '18:15:00'),
+   
+
+-- Inserts pour la table "coach"
+INSERT INTO coach (id_coach, nom, prenom, niveau, age)
+VALUES 
+    (4, 'Lamoureux', 'Michel', 'Intermédiaire', 32),
+    (5, 'Bertrand', 'Caroline', 'Avancé', 38),
+    (6, 'Fortier', 'Robert', 'Débutant', 45),
+    
+-- Inserts pour la table "combat"
+INSERT INTO combat (id_combat, lieu, niveau)
+VALUES 
+    (4, 'Ring D', 'Intermédiaire'),
+    (5, 'Ring E', 'Avancé'),
+    (6, 'Ring F', 'Débutant'),
+
+
+

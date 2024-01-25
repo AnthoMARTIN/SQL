@@ -1,0 +1,59 @@
+Commande obligatoire :
+
+GROUP BY : SELECT id_eleve, SUM(niveau) AS niveau_total FROM eleve GROUP BY id_eleve;
+
+-- Sélectionnez tous les élèves et triez-les par niveau croissant et par nom décroissant.
+ORDER BY : SELECT * FROM eleve ORDER BY niveau ASC, nom DESC;
+
+JOIN : SELECT eleve.id_eleve, eleve.prenom, eleve.nom, cours.nom AS cours_suivi FROM eleve INNER JOIN pratique ON eleve.id_eleve = pratique.id_eleve INNER JOIN cours ON cours.id_cours = pratique.id_cours;
+
+UPDATE : UPDATE eleve SET poids = poids + 5 WHERE niveau = 'Débutant';
+    
+DELETE : -- Supprimer l'élève avec l'identifiant 3 de la table "eleve"
+			DELETE FROM eleve WHERE id_eleve = 3;
+
+HAVING : SELECT id_eleve, SUM(poids) as total_poids FROM eleve GROUP BY id_eleve HAVING total_poids > 58;
+
+UNION : SELECT id_cours, date, niveau, heure,nom FROM cours UNION SELECT id_coach, nom, prenom, age,niveau FROM coach;
+
+ALTER TABLE : 
+		Ajouter une colonne : ALTER TABLE eleve ADD COLUMN date_naissance DATE;
+		Modifier une colonne : ALTER TABLE equipement MODIFY COLUMN couleur VARCHAR(30);
+		Supprimer une colonne : ALTER TABLE cours DROP COLUMN niveau;
+		Ajouter une colonne : ALTER TABLE enseigner ADD FOREIGN KEY (id_cours) REFERENCES cours(id_cours);
+		Supprimer une foreign key : ALTER TABLE enseigner DROP FOREIGN KEY nom_de_la_contrainte;
+
+DROP TABLE : DROP TABLE nom_de_la_table;
+
+LIMIT : SELECT * FROM eleve LIMIT 3;
+
+DISTINCT : SELECT DISTINCT nom FROM eleve;
+
+LIKE : SELECT * FROM eleve WHERE nom LIKE '%i%';
+
+IN : SELECT * FROM eleve WHERE niveau IN ('Débutant', 'Intermédiaire');
+
+BETWEEN : SELECT * FROM eleve WHERE poids BETWEEN 60 AND 80;
+
+CASE : SELECT prenom, nom, niveau, CASE WHEN niveau = 'Débutant' THEN 'Catégorie A' WHEN niveau = 'Intermédiaire' THEN 'Catégorie B' WHEN niveau = 'Avancé' THEN 'Catégorie C' ELSE 'Non défini' END AS categorie FROM eleve;
+
+TRUNCATE TABLE : -- Création d'une table de démonstration
+
+CREATE TABLE exemple_table (
+    id INT PRIMARY KEY,
+    nom VARCHAR(50)
+);
+
+-- Insertion de quelques données dans la table
+INSERT INTO exemple_table (id, nom) VALUES (1, 'Première ligne'), (2, 'Deuxième ligne'), (3, 'Troisième ligne');
+
+-- Affichage du contenu de la table avant TRUNCATE
+SELECT * FROM exemple_table;
+
+-- Utilisation de TRUNCATE TABLE pour supprimer toutes les lignes de la table
+TRUNCATE TABLE exemple_table;
+
+-- Affichage du contenu de la table après TRUNCATE
+SELECT * FROM exemple_table;
+
+EXPLAIN : EXPLAIN SELECT * FROM eleve WHERE niveau = 'Débutant';
